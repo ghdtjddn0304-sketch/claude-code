@@ -54,7 +54,7 @@ export default function StockSearch({ onAdd, existingSymbols }: StockSearchProps
     <div ref={containerRef} className="relative w-full max-w-sm">
       <div className="relative">
         <svg
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#3a506e]"
           fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 105 11a6 6 0 0012 0z" />
@@ -65,10 +65,13 @@ export default function StockSearch({ onAdd, existingSymbols }: StockSearchProps
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => results.length > 0 && setIsOpen(true)}
           placeholder="종목명 또는 티커 검색 (예: Apple, TSLA)"
-          className="w-full pl-9 pr-9 py-2 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full pl-9 pr-9 py-2 text-sm rounded-lg outline-none transition-all
+            bg-[#0b1628] border border-[rgba(79,140,255,0.18)]
+            text-[#c9d8f5] placeholder:text-[#3a506e]
+            focus:border-[rgba(79,172,254,0.4)] focus:ring-1 focus:ring-[rgba(79,172,254,0.2)]"
         />
         {isSearching && (
-          <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 animate-spin" fill="none" viewBox="0 0 24 24">
+          <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-[#4facfe] animate-spin" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
           </svg>
@@ -76,7 +79,7 @@ export default function StockSearch({ onAdd, existingSymbols }: StockSearchProps
       </div>
 
       {isOpen && (
-        <div className="absolute z-50 mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+        <div className="absolute z-50 mt-1 w-full dc overflow-hidden" style={{ borderRadius: 10 }}>
           {results.map((r) => {
             const already = existingSymbols.includes(r.symbol)
             return (
@@ -85,20 +88,23 @@ export default function StockSearch({ onAdd, existingSymbols }: StockSearchProps
                 onClick={() => !already && handleSelect(r)}
                 disabled={already}
                 className={`w-full flex items-center justify-between px-3 py-2.5 text-left text-sm transition-colors
-                  ${already ? 'opacity-40 cursor-not-allowed' : 'hover:bg-gray-50 cursor-pointer'}`}
+                  ${already
+                    ? 'opacity-35 cursor-not-allowed'
+                    : 'hover:bg-[rgba(79,140,255,0.07)] cursor-pointer'
+                  }`}
               >
                 <div>
-                  <span className="font-medium text-gray-900">{r.symbol}</span>
-                  <span className="ml-2 text-gray-500 text-xs">{r.name}</span>
+                  <span className="font-medium text-[#c9d8f5] num">{r.symbol}</span>
+                  <span className="ml-2 text-[#6b83a8] text-xs">{r.name}</span>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   {r.exchange && (
-                    <span className="text-xs text-gray-400">{r.exchange}</span>
+                    <span className="text-[10px] text-[#3a506e] num">{r.exchange}</span>
                   )}
                   {already ? (
-                    <span className="text-xs text-gray-400">추가됨</span>
+                    <span className="text-[11px] text-[#3a506e]">추가됨</span>
                   ) : (
-                    <svg className="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-3.5 h-3.5 text-[#4facfe]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
                   )}

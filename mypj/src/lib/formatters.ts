@@ -26,10 +26,11 @@ export function getSentimentColor(score: number): {
   bg: string
   text: string
   label: string
+  hex: string
 } {
-  if (score <= 25) return { bg: 'bg-red-100', text: 'text-red-700', label: '극단적 공포' }
-  if (score <= 45) return { bg: 'bg-orange-100', text: 'text-orange-700', label: '공포' }
-  if (score <= 55) return { bg: 'bg-yellow-100', text: 'text-yellow-700', label: '중립' }
-  if (score <= 75) return { bg: 'bg-lime-100', text: 'text-lime-700', label: '탐욕' }
-  return { bg: 'bg-green-100', text: 'text-green-700', label: '극단적 탐욕' }
+  if (score <= 25) return { bg: 'bg-[rgba(255,77,109,0.12)]', text: 'text-[#ff4d6d]', label: '극단적 공포', hex: '#ff4d6d' }
+  if (score <= 45) return { bg: 'bg-[rgba(255,154,90,0.12)]', text: 'text-[#ff9a5a]', label: '공포', hex: '#ff9a5a' }
+  if (score <= 55) return { bg: 'bg-[rgba(255,215,112,0.12)]', text: 'text-[#ffd770]', label: '중립', hex: '#ffd770' }
+  if (score <= 75) return { bg: 'bg-[rgba(100,220,170,0.12)]', text: 'text-[#64dca8]', label: '탐욕', hex: '#64dca8' }
+  return { bg: 'bg-[rgba(16,228,158,0.12)]', text: 'text-[#10e49e]', label: '극단적 탐욕', hex: '#10e49e' }
 }

@@ -1,26 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #070d1a;
+  --bg-secondary: #0d1524;
+  --bg-card: #0b1628;
+  --bg-card-h: #0f1e38;
+
+  --border: rgba(79, 140, 255, 0.12);
+  --border-h: rgba(79, 172, 254, 0.32);
+
+  --text-p: #c9d8f5;
+  --text-s: #6b83a8;
+  --text-m: #3a506e;
+
+  --pos: #10e49e;
+  --neg: #ff4d6d;
+  --acc: #4facfe;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-p);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-jb);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-p);
+  background-image: radial-gradient(rgba(79, 140, 255, 0.045) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-attachment: fixed;
 }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: rgba(79, 140, 255, 0.22); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(79, 172, 254, 0.42); }
+
+/* Dash card */
+.dc {
+  background: var(--bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.dc:hover {
+  background: var(--bg-card-h);
+  border-color: var(--border-h);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 24px rgba(79, 172, 254, 0.06);
+}
+
+/* Numeric monospace */
+.num {
+  font-family: var(--font-jb), 'Courier New', monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+.live-dot { animation: live-pulse 2.2s ease-in-out infinite; }

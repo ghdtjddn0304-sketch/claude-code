@@ -98,7 +98,7 @@ export default function DashboardGrid() {
           </div>
         )}
         {watched.length === 0 && (
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-[#3a506e]">
             종목을 검색해서 추가하면 여기에 표시됩니다.
           </p>
         )}

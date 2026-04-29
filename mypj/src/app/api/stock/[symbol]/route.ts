@@ -24,15 +24,31 @@ export async function GET(
 
     const meta = result.meta
     const closes: number[] = result.indicators?.quote?.[0]?.close ?? []
-    const sparkline = closes.filter((v: number) => v != null).slice(-60)
+    const validCloses = closes.filter((v): v is number => v != null)
+    const sparkline = validCloses.slice(-60)
+
+    const price = meta.regularMarketPrice ?? 0
+    const prevClose =
+      (validCloses.length >= 2 ? validCloses[validCloses.length - 2] : 0) ||
+      (meta.regularMarketPreviousClose ?? meta.chartPreviousClose ?? 0)
+
+    const change =
+      meta.regularMarketChange != null && meta.regularMarketChange !== 0
+        ? meta.regularMarketChange
+        : prevClose > 0 ? price - prevClose : 0
+
+    const changePercent =
+      meta.regularMarketChangePercent != null && meta.regularMarketChangePercent !== 0
+        ? meta.regularMarketChangePercent
+        : prevClose > 0 ? ((price - prevClose) / prevClose) * 100 : 0
 
     const item: MarketItem = {
       symbol,
       name: meta.shortName ?? meta.longName ?? symbol,
-      price: meta.regularMarketPrice ?? 0,
-      change: meta.regularMarketChange ?? 0,
-      changePercent: meta.regularMarketChangePercent ?? 0,
-      previousClose: meta.regularMarketPreviousClose ?? 0,
+      price,
+      change,
+      changePercent,
+      previousClose: prevClose,
       sparkline,
       currency: meta.currency ?? 'USD',
     }

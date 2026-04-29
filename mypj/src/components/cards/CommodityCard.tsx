@@ -17,11 +17,9 @@ export default function CommodityCard({ item, isLoading }: CommodityCardProps) {
   if (item.error) return <ErrorCard name={item.name} />
 
   const isPositive = item.change >= 0
-  const color = isPositive ? '#16a34a' : '#dc2626'
+  const color = isPositive ? '#10e49e' : '#ff4d6d'
   const isKRW = item.currency === 'KRW'
-  const priceStr = isKRW
-    ? formatKRW(item.price)
-    : formatPrice(item.price)
+  const priceStr = isKRW ? formatKRW(item.price) : formatPrice(item.price)
 
   const unitLabel = item.symbol === 'GC=F'
     ? 'USD/oz'
@@ -30,16 +28,16 @@ export default function CommodityCard({ item, isLoading }: CommodityCardProps) {
     : item.currency || ''
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:shadow-md transition-shadow">
-      <div className="flex justify-between items-start mb-1">
-        <span className="text-xs font-medium text-gray-500">{item.name}</span>
+    <div className="dc p-4">
+      <div className="flex justify-between items-start mb-2">
+        <span className="text-[11px] font-medium text-[#6b83a8]">{item.name}</span>
         <Badge value={item.changePercent} formatted={formatPercent(item.changePercent)} />
       </div>
-      <div className="text-2xl font-bold text-gray-900 mb-0.5">
+      <div className="num text-2xl font-bold text-[#c9d8f5] mb-0.5 leading-none">
         {priceStr}
-        {unitLabel && <span className="text-sm font-normal text-gray-400 ml-1">{unitLabel}</span>}
+        {unitLabel && <span className="num text-xs font-normal text-[#3a506e] ml-1.5">{unitLabel}</span>}
       </div>
-      <div className={`text-xs mb-2 ${isPositive ? 'text-green-600' : 'text-red-500'}`}>
+      <div className="num text-[11px] mb-3" style={{ color }}>
         {isPositive ? '▲' : '▼'} {isKRW ? formatKRW(Math.abs(item.change)) : formatChange(item.change)}
       </div>
       <Sparkline data={item.sparkline} color={color} height={40} />
